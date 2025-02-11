@@ -11,8 +11,8 @@ import SwiftUI
 struct MovieDBApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .globalErrorToast()
+            MainTabView()
+                .environmentObject(ErrorManager.shared)
         }
     }
 }
