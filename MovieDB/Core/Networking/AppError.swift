@@ -18,7 +18,7 @@ enum AppError: Error {
     case emptyData
     case unknown(statusCode: Int? = nil, message: String = "An unknown error occurred.")
     
-    
+
     var errorDescription: String {
         switch self {
         case .rateLimitExceeded:

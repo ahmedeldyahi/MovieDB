@@ -17,17 +17,22 @@ final class MovieRepository: MovieRepositoryProtocol {
     }
     
     func fetchMovies(category: MovieCategory) async throws -> [Movie] {
+        if let cachedMovies = try? await localDataSource.getMovies(category: category), !cachedMovies.isEmpty {
+            return cachedMovies
+        }
+        
         do {
             let moviesDTO = try await remoteDataSource.fetchMovies(category: category)
-            let movies =  moviesDTO.results ?? []
+            let movies = moviesDTO.results ?? []
+            
+            if movies.isEmpty {
+                return [] // Avoids breaking the UI
+            }
             
             try await localDataSource.saveMovies(movies, category: category)
             
             return movies
         } catch {
-            if let cachedMovies = try? await localDataSource.getMovies(category: category) {
-                return cachedMovies
-            }
             throw error
         }
     }

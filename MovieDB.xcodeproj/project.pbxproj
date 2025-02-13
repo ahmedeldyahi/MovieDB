@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B6B93672D5EA35E000B3F9B /* FetchMoviesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B93662D5EA35E000B3F9B /* FetchMoviesUseCaseProtocol.swift */; };
+		8B6B936A2D5EB30A000B3F9B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B93692D5EB30A000B3F9B /* ErrorView.swift */; };
 		8B6FEBE22D5CC4D90010CA50 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6FEBE12D5CC4D90010CA50 /* ViewState.swift */; };
 		8B6FEBE72D5CE12D0010CA50 /* MovieCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6FEBE62D5CE12D0010CA50 /* MovieCategory.swift */; };
 		8B6FEBEA2D5CE1550010CA50 /* MovieRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6FEBE92D5CE1550010CA50 /* MovieRepositoryProtocol.swift */; };
@@ -39,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B6B93662D5EA35E000B3F9B /* FetchMoviesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMoviesUseCaseProtocol.swift; sourceTree = "<group>"; };
+		8B6B93692D5EB30A000B3F9B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8B6FEBE12D5CC4D90010CA50 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		8B6FEBE62D5CE12D0010CA50 /* MovieCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategory.swift; sourceTree = "<group>"; };
 		8B6FEBE92D5CE1550010CA50 /* MovieRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -93,6 +97,15 @@
 			path = Listing;
 			sourceTree = "<group>";
 		};
+		8B6B93682D5EB2CF000B3F9B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8BDBA3232D5BFA2D004BF771 /* MovieCardView.swift */,
+				8B6B93692D5EB30A000B3F9B /* ErrorView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		8B6FEBE32D5CE0E60010CA50 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				8B6FEBEC2D5CE1930010CA50 /* FetchMoviesUseCase.swift */,
+				8B6B93662D5EA35E000B3F9B /* FetchMoviesUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -210,7 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				8BDBA3252D5C102F004BF771 /* MainTabView.swift */,
-				8BDBA3232D5BFA2D004BF771 /* MovieCardView.swift */,
 				8BDBA32B2D5C14A7004BF771 /* MovieListView.swift */,
 			);
 			path = Screens;
@@ -275,6 +288,7 @@
 		8BF498A12D5B6216008CB955 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8B6B93682D5EB2CF000B3F9B /* Components */,
 				8BF498AA2D5B62F2008CB955 /* Configuration.swift */,
 				8BF498A22D5B622E008CB955 /* Networking */,
 				8B6FEC072D5DF33E0010CA50 /* CoreData */,
@@ -371,6 +385,7 @@
 				8B6FEBE22D5CC4D90010CA50 /* ViewState.swift in Sources */,
 				8BF498AF2D5B6367008CB955 /* NetworkMonitor.swift in Sources */,
 				8BF498A52D5B626D008CB955 /* NetworkManager.swift in Sources */,
+				8B6B936A2D5EB30A000B3F9B /* ErrorView.swift in Sources */,
 				8B6FEC0C2D5DFEC80010CA50 /* Model.xcdatamodeld in Sources */,
 				8BF498A72D5B629D008CB955 /* NetworkService.swift in Sources */,
 				8B6FEBF62D5CE2010010CA50 /* MovieLocalDataSourceProtocol.swift in Sources */,
@@ -388,6 +403,7 @@
 				8B6FEBE72D5CE12D0010CA50 /* MovieCategory.swift in Sources */,
 				8B6FEBEA2D5CE1550010CA50 /* MovieRepositoryProtocol.swift in Sources */,
 				8B6FEBFC2D5CE28E0010CA50 /* MovieLocalDataSource.swift in Sources */,
+				8B6B93672D5EA35E000B3F9B /* FetchMoviesUseCaseProtocol.swift in Sources */,
 				8BDBA3222D5BEED0004BF771 /* ErrorManager.swift in Sources */,
 				8B6FEC062D5CE4BA0010CA50 /* MovieRemoteDataSource.swift in Sources */,
 				8B6FEBED2D5CE1930010CA50 /* FetchMoviesUseCase.swift in Sources */,

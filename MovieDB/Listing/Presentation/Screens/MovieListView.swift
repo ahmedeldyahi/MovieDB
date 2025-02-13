@@ -23,27 +23,38 @@ struct MovieListView: View {
             }
     }
     
-    @ViewBuilder
-    private var content: some View {
-        switch viewModel.state {
-        case .idle, .loading:
-            ProgressView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-        case .success(let movies):
-            if movies.isEmpty {
-                EmptyView() // Keeping as requested
-            } else {
-                List(movies) { movie in
-                    MovieCardView(movie: movie)
-                        .onTapGesture {
-                            coordinator.navigateToDetail(movie: movie, in: viewModel.category)
-                        }
+    var content: some View {
+        Group {
+            switch viewModel.state {
+            case .loading:
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+            case .success(let movies):
+                success(movies)
+                
+            case .error(let info):
+                ErrorView(errorInfo: info) {
+                    Task{
+                        await viewModel.loadMovies()
+                    }
                 }
             }
-            
-        case .error:
-            Text("error")
         }
     }
+    
+    @ViewBuilder
+    fileprivate func success(_ movies: [Movie]) -> some View {
+        if movies.isEmpty {
+            EmptyView()
+        } else {
+            List(movies) { movie in
+                MovieCardView(movie: movie)
+                    .onTapGesture {
+                        coordinator.navigateToDetail(movie: movie, in: viewModel.category)
+                    }
+            }
+        }
+    }
+    
 }

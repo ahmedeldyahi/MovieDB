@@ -19,7 +19,7 @@ final class CoreDataMovieCache: MovieCacheProtocol {
     
     func getMovies(category: MovieCategory, expirationInterval: TimeInterval) async throws -> [Movie]? {
         try await backgroundContext.perform { [weak self] in
-            guard let self else { throw CacheError.unexpectedError }
+            guard let self else { throw AppError.unknown(statusCode: nil, message: "Something went wrong") }
             
             let request = CachedMovie.fetchRequest()
             request.predicate = NSPredicate(
@@ -35,7 +35,7 @@ final class CoreDataMovieCache: MovieCacheProtocol {
     
     func saveMovies(_ movies: [Movie], category: MovieCategory) async throws {
         try await backgroundContext.perform { [weak self] in
-            guard let self else { throw CacheError.unexpectedError }
+            guard let self else { throw AppError.unknown(statusCode: nil, message: "Something went wrong") }
             
             // Delete old cached movies for this category
             let deleteRequest = NSBatchDeleteRequest(

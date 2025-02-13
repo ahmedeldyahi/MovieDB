@@ -87,5 +87,3 @@ let sampleMovie = Movie(
     posterPath: "/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg",
     releaseDate: "2024-11-21"
 )
-
-

@@ -25,13 +25,9 @@ final class NetworkManager: NetworkService {
         configureDecoder()
     }
     
-    private func configureDecoder() {
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601 // Handle dates like "2023-10-01"
-    }
-    
     func fetch<T: Decodable>(endpoint: APIEndpointContract) async throws -> T {
         guard networkMonitor.status == .connected else {
+            ErrorManager.shared.show(.offline)
             throw AppError.offline
         }
         
@@ -76,4 +72,10 @@ extension NetworkManager {
             throw AppError.decodingFailed
         }
     }
+    
+    private func configureDecoder() {
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601 // Handle dates like "2023-10-01"
+    }
+    
 }

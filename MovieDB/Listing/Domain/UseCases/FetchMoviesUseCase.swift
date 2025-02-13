@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FetchMoviesUseCase {
+struct FetchMoviesUseCase: FetchMoviesUseCaseProtocol {
     private let repository: MovieRepositoryProtocol
     private let category: MovieCategory
     

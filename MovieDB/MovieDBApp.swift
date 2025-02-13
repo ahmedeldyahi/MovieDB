@@ -12,7 +12,8 @@ struct MovieDBApp: App {
     var body: some Scene {
         WindowGroup {
             MainTabView()
-                .environmentObject(ErrorManager.shared)
+                .globalErrorToast()
+//                .environmentObject(ErrorManager.shared)
         }
     }
 }
