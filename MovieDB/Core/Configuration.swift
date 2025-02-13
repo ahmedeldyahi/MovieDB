@@ -8,7 +8,7 @@
 import Foundation
 
 struct Configuration {
-    static let baseURL: URL  = URL(string: "https://api.themoviedb.org/3")!
+    static let baseURL: URL  = URL(string: "https://api.themoviedb.org/3/")!
     static let apiKey = ProcessInfo.processInfo.environment["API_KEY"] ?? ""
 
 }
