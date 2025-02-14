@@ -14,8 +14,12 @@ final class MovieRemoteDataSource: MovieRemoteDataSourceProtocol {
         self.networkService = networkService
     }
     
-    func fetchMovies(category: MovieCategory) async throws -> MoviesDBRootDTO<[Movie]> {
+    func fetchMovies(category: MovieCategory) async throws -> MoviesDBRoot<[Movie]> {
         let endpoint = APIEndpoint.movies(category: category.endpoint)
         return try await networkService.fetch(endpoint: endpoint)
+    }
+    
+    func fetchMovieDetails(movieId: Int) async throws -> Movie {
+        try await networkService.fetch(endpoint: APIEndpoint.movieDetail(id: movieId))
     }
 }

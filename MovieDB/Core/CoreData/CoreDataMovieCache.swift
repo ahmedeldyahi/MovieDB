@@ -104,7 +104,13 @@ extension CachedMovie {
             overview: overview,
             voteAverage: voteAverage,
             posterPath: posterPath,
-            releaseDate: releaseDate
+            backdropPath: nil,
+            releaseDate: releaseDate,
+            genres: nil,
+            runtime: nil,
+            budget: nil,
+            revenue: nil,
+            status: nil
             
         )
     }

@@ -9,4 +9,5 @@ import Foundation
 
 protocol MovieRepositoryProtocol {
     func fetchMovies(category: MovieCategory) async throws -> [Movie]
+    func fetchMovieDetails(movieId: Int) async throws -> Movie
 }

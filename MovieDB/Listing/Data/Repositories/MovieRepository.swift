@@ -36,4 +36,9 @@ final class MovieRepository: MovieRepositoryProtocol {
             throw error
         }
     }
+    
+    func fetchMovieDetails(movieId: Int) async throws -> Movie {
+        try await remoteDataSource.fetchMovieDetails(movieId: movieId)
+    }
 }
+

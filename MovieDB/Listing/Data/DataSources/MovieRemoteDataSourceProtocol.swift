@@ -8,5 +8,6 @@
 import Foundation
 
 protocol MovieRemoteDataSourceProtocol {
-    func fetchMovies(category: MovieCategory) async throws -> MoviesDBRootDTO<[Movie]>
+    func fetchMovies(category: MovieCategory) async throws -> MoviesDBRoot<[Movie]>
+    func fetchMovieDetails(movieId: Int) async throws -> Movie
 }

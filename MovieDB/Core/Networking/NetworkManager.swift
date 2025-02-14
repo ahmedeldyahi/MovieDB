@@ -67,9 +67,9 @@ extension NetworkManager {
             return try decoder.decode(T.self, from: data)
         } catch let decodingError as DecodingError {
             // Add context to decoding errors for debugging
-            throw AppError.decodingFailed.with(context: "\(decodingError)")
-        } catch {
+            print(decodingError)
             throw AppError.decodingFailed
+            
         }
     }
     

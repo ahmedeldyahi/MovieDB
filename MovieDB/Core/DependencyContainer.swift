@@ -41,4 +41,8 @@ final class DependencyContainer {
             category: category
         )
     }
+    
+    func makeFetchMovieDetailsUseCase() -> FetchMovieDetailsUseCase {
+        FetchMovieDetailsUseCase(repository: movieRepository)
+    }
 }

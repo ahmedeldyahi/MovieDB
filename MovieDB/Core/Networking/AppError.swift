@@ -53,17 +53,6 @@ enum AppError: Error {
     }
 }
 
-extension AppError {
-    // Helper to attach debugging context
-    func with(context: String) -> AppError {
-        switch self {
-        case .decodingFailed:
-            return .unknown(message: "Decoding failed: \(context)")
-        default:
-            return self
-        }
-    }
-}
 
 extension AppError: Equatable {
     static func == (lhs: AppError, rhs: AppError) -> Bool {
