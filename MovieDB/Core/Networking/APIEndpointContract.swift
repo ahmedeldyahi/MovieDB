@@ -9,6 +9,7 @@ import Foundation
 protocol APIEndpointContract {
     var method: HTTPMethod { get }
     var path: String { get }
+    var urlRequest: URLRequest? { get }
 }
 
 
@@ -18,25 +19,6 @@ extension APIEndpointContract {
     var baseURL: URL {
         Configuration.baseURL
     }
-    
-    var urlRequest: URLRequest? {
-          var components = URLComponents()
-          components.scheme = baseURL.scheme
-          components.host = baseURL.host
-          components.path = baseURL.path + path
-          
-          
-          guard let url = components.url else { return nil }
-          
-          var request = URLRequest(url: url)
-          request.httpMethod = method.rawValue
-              request.setValue(
-                  "Bearer \(Configuration.apiKey)",
-                  forHTTPHeaderField: "Authorization"
-              )
-          
-          return request
-      }
 }
 
 

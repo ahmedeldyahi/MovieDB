@@ -11,9 +11,9 @@ import Foundation
 final class MovieDetailViewModel: ObservableObject {
     @Published var state: ViewState<Movie> = .loading
     let movie: Movie
-    private let fetchDetailsUseCase: FetchMovieDetailsUseCase
+    private let fetchDetailsUseCase: FetchMovieDetailsUseCaseProtocol
     
-    init(movie: Movie, fetchDetailsUseCase: FetchMovieDetailsUseCase) {
+    init(movie: Movie, fetchDetailsUseCase: FetchMovieDetailsUseCaseProtocol) {
         self.movie = movie
         self.fetchDetailsUseCase = fetchDetailsUseCase
     }

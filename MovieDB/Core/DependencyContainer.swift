@@ -15,7 +15,7 @@ final class DependencyContainer {
     private lazy var networkService: NetworkService = NetworkManager()
     
     // Cache
-    private lazy var movieCache: MovieCacheProtocol = CoreDataMovieCache()
+    private lazy var movieCache: MovieCacheProtocol = CoreDataMovieCache.shared
     
     // Data Sources
     private lazy var remoteDataSource: MovieRemoteDataSourceProtocol = {

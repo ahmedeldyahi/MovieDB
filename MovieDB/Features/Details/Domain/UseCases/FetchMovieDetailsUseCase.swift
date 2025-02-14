@@ -6,7 +6,12 @@
 //
 
 import Foundation
-struct FetchMovieDetailsUseCase {
+
+protocol FetchMovieDetailsUseCaseProtocol {
+    func execute(movieId: Int) async throws -> Movie
+}
+
+struct FetchMovieDetailsUseCase: FetchMovieDetailsUseCaseProtocol {
     private let repository: MovieRepositoryProtocol
     
     init(repository: MovieRepositoryProtocol) {

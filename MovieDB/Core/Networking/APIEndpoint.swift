@@ -17,4 +17,23 @@ enum APIEndpoint: APIEndpointContract {
         case .movieDetail(let id): return "/movie/\(id)"
         }
     }
+    
+    var urlRequest: URLRequest? {
+          var components = URLComponents()
+          components.scheme = baseURL.scheme
+          components.host = baseURL.host
+          components.path = baseURL.path + path
+          
+          
+          guard let url = components.url else { return nil }
+          
+          var request = URLRequest(url: url)
+          request.httpMethod = method.rawValue
+              request.setValue(
+                  "Bearer \(Configuration.apiKey)",
+                  forHTTPHeaderField: "Authorization"
+              )
+          
+          return request
+      }
 }

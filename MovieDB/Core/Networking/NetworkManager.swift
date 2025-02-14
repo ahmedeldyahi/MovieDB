@@ -75,7 +75,7 @@ extension NetworkManager {
     
     private func configureDecoder() {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601 // Handle dates like "2023-10-01"
+        decoder.dateDecodingStrategy = .iso8601 
     }
     
 }

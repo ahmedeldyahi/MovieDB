@@ -9,46 +9,75 @@ import Foundation
 import CoreData
 
 final class CoreDataMovieCache: MovieCacheProtocol {
-    private let persistentContainer: NSPersistentContainer
-    private let backgroundContext: NSManagedObjectContext
     
-    init(persistentContainer: NSPersistentContainer = CoreDataStack.shared.persistentContainer) {
-        self.persistentContainer = persistentContainer
-        self.backgroundContext = persistentContainer.newBackgroundContext()
+    // MARK: - Singleton
+    static let shared = CoreDataMovieCache()
+
+    private let container: NSPersistentContainer
+    private let context: NSManagedObjectContext
+    
+    // MARK: - Initializers
+    private init(container: NSPersistentContainer = CoreDataStack.shared.persistentContainer) {
+        self.container = container
+        self.context = container.viewContext
     }
     
+    /// Internal initializer for testing
+    internal init(persistentStoreDescription: NSPersistentStoreDescription) {
+        self.container = NSPersistentContainer(name: "Model")
+        self.container.persistentStoreDescriptions = [persistentStoreDescription]
+        self.container.loadPersistentStores { _, error in
+            if let error = error {
+                fatalError("Core Data stack initialization failed: \(error)")
+            }
+        }
+        self.context = container.viewContext
+    }
+    
+    // MARK: - Fetch Movies (Array)
     func getMovies(category: MovieCategory, expirationInterval: TimeInterval) async throws -> [Movie]? {
-        try await backgroundContext.perform { [weak self] in
-            guard let self else { throw AppError.unknown(statusCode: nil, message: "Something went wrong") }
-            
-            let request = CachedMovie.fetchRequest()
+        try await context.perform {
+            let request: NSFetchRequest<CachedMovie> = CachedMovie.fetchRequest()
             request.predicate = NSPredicate(
                 format: "category == %@ AND lastUpdatedDate >= %@",
                 category.rawValue,
                 Date().addingTimeInterval(-expirationInterval) as NSDate
             )
             
-            let cachedMovies = try self.backgroundContext.fetch(request)
+            let cachedMovies = try self.context.fetch(request)
             return cachedMovies.compactMap { $0.toDomainModel() }
         }
     }
     
+    // MARK: - Save Movies (Array)
     func saveMovies(_ movies: [Movie], category: MovieCategory) async throws {
-        try await backgroundContext.perform { [weak self] in
-            guard let self else { throw AppError.unknown(statusCode: nil, message: "Something went wrong") }
-            
-            // Delete old cached movies for this category
-            let deleteRequest = NSBatchDeleteRequest(
-                fetchRequest: CachedMovie.fetchRequest(for: category))
-            try self.backgroundContext.execute(deleteRequest)
-            
+        try await deleteMovies(for: category)
+
+        try await context.perform {
             // Insert new movies
             for movie in movies {
-                let cachedMovie = CachedMovie(context: self.backgroundContext)
+                let cachedMovie = CachedMovie(context: self.context)
                 cachedMovie.update(with: movie, category: category)
             }
+
+            try self.context.save()
+        }
+    }
+
+
+    // MARK: - Delete Movies by Category
+    private func deleteMovies(for category: MovieCategory) async throws {
+        try await context.perform {
+            let fetchRequest: NSFetchRequest<CachedMovie> = CachedMovie.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "category == %@", category.rawValue)
             
-            try self.backgroundContext.save()
+            let movies = try self.context.fetch(fetchRequest)
+            
+            for movie in movies {
+                self.context.delete(movie)
+            }
+            
+            try self.context.save()
         }
     }
 }
